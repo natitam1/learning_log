@@ -30,6 +30,6 @@ def new_topic(request):
             form.save()
             return redirect('learning_lots:topics')
 
-# Display a blank or invalid form.
-context = {'form': form}
-return render(request, 'learning_logs/new_topic.html', context)
+    # Display a blank or invalid form.
+    context = {'form': form}
+    return render(request, 'learning_logs/new_topic.html', context)
