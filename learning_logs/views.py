@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Topic
 from .forms import TopicForm, EntryForm
@@ -28,7 +28,7 @@ def new_topic(request):
         form = TopicForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('learning_lots:topics')
+            return redirect('learning_logs:topics')
     # Display a blank or invalid form.
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
@@ -40,7 +40,6 @@ def new_entry(request, topic_id):
     if request.method != 'POST':
         # No data submitted; create a blank form.
         form = EntryForm()
-        form = EntryForm()
     else:
         # POST data submitted; process data
         form = EntryForm(data=request.POST)
@@ -49,8 +48,8 @@ def new_entry(request, topic_id):
             new_entry.topic = topic
             new_entry.save()
             return redirect('learning_logs:topic', topic_id=topic_id)
+
     
     # Display a blank or invalid form.
     context = {'topic':topic, 'form':form}
     return render(request, 'learning_logs/new_entry.html', context)
-
